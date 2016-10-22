@@ -9,5 +9,7 @@
 <body>
 <b><%= request.getParameter("name") %></b>
 <b><%= request.getAttribute("age") %></b>
+<input type="button" value="Volver" onclick="datos.jsp">
+<input type="button" value="Eliminar usuario">
 </body>
 </html>
