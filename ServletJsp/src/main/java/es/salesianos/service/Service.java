@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import es.salesianos.connection.ConnectionH2;
-import es.salesianos.connection.ConnectionManager;
+
 import es.salesianos.model.User;
 import es.salesianos.model.assembler.UserAssembler;
 import es.salesianos.repository.Repository;
