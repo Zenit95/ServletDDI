@@ -40,7 +40,8 @@ public class Repository {
 	public void insert(User userFormulario) {
 		Connection conn = manager.open(jdbcUrl);
 		try {
-			PreparedStatement prepareStatement = conn.prepareStatement("INSERT INTO USER ('name', 'course', 'dateOfBirth') VALUES ('"+userFormulario.getName()+"', '"+userFormulario.getCourse()+"', '"+userFormulario.getDateOfBirth()+"');");
+			PreparedStatement prepareStatement = conn.prepareStatement("INSERT INTO USER (name, course, dateOfBirth) VALUES ('"+userFormulario.getName()+"', '"+userFormulario.getCourse()+"', '"+userFormulario.getDateOfBirthForDatabase()+"');");
+			prepareStatement.execute();
 			prepareStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
