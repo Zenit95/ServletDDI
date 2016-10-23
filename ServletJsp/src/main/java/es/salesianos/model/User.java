@@ -30,6 +30,10 @@ public class User {
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
+	
+	public String getDateOfBirthForDatabase() {
+		return sdf.format(dateOfBirth);
+	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
