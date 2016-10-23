@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import es.salesianos.connection.ConnectionH2;
-import es.salesianos.connection.ConnectionManager;
+
 import es.salesianos.model.User;
 import es.salesianos.model.assembler.UserAssembler;
 import es.salesianos.repository.Repository;
@@ -38,6 +38,16 @@ public class Service {
 		
 
 		//manager.close(conn);
+	}
+	
+	public void delete(User userFormulario) {
+		Repository repository = new Repository();
+		User userInDatabase = repository.search(userFormulario);
+		if(null == userInDatabase){
+			insertOrUpdate(userFormulario);
+		}else{
+			repository.delete(userFormulario);
+		}
 	}
 
 	public void calculateAgeAndAddIntoRequest(HttpServletRequest req, Date date) {

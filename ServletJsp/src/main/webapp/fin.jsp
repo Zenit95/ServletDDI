@@ -9,5 +9,8 @@
 <body>
 <b><%= request.getParameter("name") %></b>
 <b><%= request.getAttribute("age") %></b>
+<b><%= request.getParameter("course") %></b><br/>
+<input type="button" value="Volver" onclick="self.location.href = 'datos.jsp'">
+<input type="button" value="Eliminar usuario" onclick="self.location.href = 'eliminar.jsp'">
 </body>
 </html>

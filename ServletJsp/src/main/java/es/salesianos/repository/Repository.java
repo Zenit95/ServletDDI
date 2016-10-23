@@ -40,7 +40,8 @@ public class Repository {
 	public void insert(User userFormulario) {
 		Connection conn = manager.open(jdbcUrl);
 		try {
-			PreparedStatement prepareStatement = conn.prepareStatement("INSERT INTO USER ('name', 'course', 'dateOfBirth') VALUES ('"+userFormulario.getName()+"', '"+userFormulario.getCourse()+"', '"+userFormulario.getDateOfBirth()+"');");
+			PreparedStatement prepareStatement = conn.prepareStatement("INSERT INTO USER (name, course, dateOfBirth) VALUES ('"+userFormulario.getName()+"', '"+userFormulario.getCourse()+"', '"+userFormulario.getDateOfBirthForDatabase()+"');");
+			prepareStatement.execute();
 			prepareStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,6 +57,20 @@ public class Repository {
 			PreparedStatement prepareStatement = conn.prepareStatement("(UPDATE USER SET ('"+userFormulario.getCourse()+"', '"+userFormulario.getDateOfBirth()+"')) FROM USER WHERE name=?;");
 			prepareStatement.setString(1, userFormulario.getName());
 			prepareStatement.executeUpdate();
+			prepareStatement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		manager.close(conn);
+	}
+	public void delete(User userFormulario) {
+		Connection conn = manager.open(jdbcUrl);
+		try {
+
+			PreparedStatement prepareStatement = conn.prepareStatement("(DELETE FROM USER WHERE name=?;");
+			prepareStatement.setString(1, userFormulario.getName());
+			prepareStatement.execute();
 			prepareStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

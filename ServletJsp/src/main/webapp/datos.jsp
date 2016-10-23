@@ -15,7 +15,11 @@
 		
 		<input type="date" name="dob"><br/>
 		<span>curso:</span> 
-		<input type="text" name="course"> <br/>
+		<select name="course"> 
+			<option value="primero">Primero</option>
+			<option value="segundo">Segundo</option>
+		</select>
+		<br/>
 		<input type="submit">
 	</form>
 	</body>
