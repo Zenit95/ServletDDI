@@ -11,7 +11,7 @@ public class ConnectionH2 {
 		Connection conn;
 		try {
 			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:~/test"+jdbcUrl+";INIT=RUNSCRIPT FROM 'classpath:scripts/create.sql'", "sa", "");
+			conn = DriverManager.getConnection(jdbcUrl+";INIT=RUNSCRIPT FROM 'classpath:scripts/create.sql'", "sa", "");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

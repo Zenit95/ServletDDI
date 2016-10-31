@@ -10,7 +10,7 @@ import es.salesianos.connection.ConnectionH2;
 import es.salesianos.model.User;
 
 public class Repository {
-	private static final String jdbcUrl = null;
+	private static final String jdbcUrl = "jdbc:h2:file:C:/Users/deama/Desktop/servlet/Serv/ServletJsp/DDI/ServletJsp/src/main/resources/test";
 	ConnectionH2 manager = new ConnectionH2();
 
 	//manager.close(conn);
@@ -41,7 +41,7 @@ public class Repository {
 		Connection conn = manager.open(jdbcUrl);
 		try {
 			PreparedStatement prepareStatement = conn.prepareStatement("INSERT INTO USER (name, course, dateOfBirth) VALUES ('"+userFormulario.getName()+"', '"+userFormulario.getCourse()+"', '"+userFormulario.getDateOfBirthForDatabase()+"');");
-			prepareStatement.execute();
+			prepareStatement.executeUpdate();
 			prepareStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,7 +56,7 @@ public class Repository {
 
 			PreparedStatement prepareStatement = conn.prepareStatement("(UPDATE USER SET ('"+userFormulario.getCourse()+"', '"+userFormulario.getDateOfBirth()+"')) FROM USER WHERE name=?;");
 			prepareStatement.setString(1, userFormulario.getName());
-			prepareStatement.executeUpdate();
+			prepareStatement.execute();
 			prepareStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -64,13 +64,13 @@ public class Repository {
 		}
 		manager.close(conn);
 	}
-	public void delete(User userFormulario) {
+	public void delete(String name) {
 		Connection conn = manager.open(jdbcUrl);
 		try {
 
-			PreparedStatement prepareStatement = conn.prepareStatement("(DELETE FROM USER WHERE name=?;");
-			prepareStatement.setString(1, userFormulario.getName());
-			prepareStatement.execute();
+			PreparedStatement prepareStatement = conn.prepareStatement("DELETE * FROM USER WHERE name=?;");
+			prepareStatement.setString(1, name);
+			prepareStatement.executeUpdate();
 			prepareStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

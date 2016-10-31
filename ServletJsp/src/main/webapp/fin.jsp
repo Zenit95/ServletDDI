@@ -11,6 +11,10 @@
 <b><%= request.getAttribute("age") %></b>
 <b><%= request.getParameter("course") %></b><br/>
 <input type="button" value="Volver" onclick="self.location.href = 'datos.jsp'">
-<input type="button" value="Eliminar usuario" onclick="self.location.href = 'eliminar.jsp'">
+<form action="delete" method="post">
+ <input value="Sí" type="submit">
+ <input type="hidden" value="Eliminar usuario" name="<%= request.getParameter('name') %>">
+</form>
+
 </body>
 </html>

@@ -46,7 +46,7 @@ public class Service {
 		if(null == userInDatabase){
 			insertOrUpdate(userFormulario);
 		}else{
-			repository.delete(userFormulario);
+			repository.delete(userFormulario.getName());
 		}
 	}
 

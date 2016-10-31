@@ -9,7 +9,8 @@
 <body>
 <b>¿Está seguro de que quiere eliminar el usuario?</b><br/>
 <input type="button" value="No" onclick="self.location.href = 'datos.jsp'">
-<input type="button" value="Sí" onclick="self.location.href = 'datos.jsp'">
+
+
 
 </body>
 </html>
