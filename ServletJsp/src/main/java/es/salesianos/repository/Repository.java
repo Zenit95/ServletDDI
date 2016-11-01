@@ -1,6 +1,7 @@
 package es.salesianos.repository;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,10 +11,8 @@ import es.salesianos.connection.ConnectionH2;
 import es.salesianos.model.User;
 
 public class Repository {
-	private static final String jdbcUrl = "jdbc:h2:file:C:/Users/deama/Desktop/servlet/Serv/ServletJsp/DDI/ServletJsp/src/main/resources/test";
+	private static final String jdbcUrl = "jdbc:h2:file:./src/main/resources/test";
 	ConnectionH2 manager = new ConnectionH2();
-
-	//manager.close(conn);
 
 	public User search(User userFormulario) {
 		User userInDataBase = null;
@@ -24,9 +23,9 @@ public class Repository {
 			ResultSet resultSet = prepareStatement.executeQuery();
 			while(resultSet.next()){
 				userInDataBase = new User();
-				userInDataBase.setName(resultSet.getString(0));
-				userInDataBase.setCourse(resultSet.getString(1));
-				userInDataBase.setDateOfBirth(resultSet.getString(2));
+				userInDataBase.setName(resultSet.getString(1));
+				userInDataBase.setCourse(resultSet.getString(2));
+				userInDataBase.setDateOfBirth(resultSet.getString(3));
 			}
 			resultSet.close();
 			prepareStatement.close();
@@ -40,7 +39,7 @@ public class Repository {
 	public void insert(User userFormulario) {
 		Connection conn = manager.open(jdbcUrl);
 		try {
-			PreparedStatement prepareStatement = conn.prepareStatement("INSERT INTO USER (name, course, dateOfBirth) VALUES ('"+userFormulario.getName()+"', '"+userFormulario.getCourse()+"', '"+userFormulario.getDateOfBirthForDatabase()+"');");
+			PreparedStatement prepareStatement = conn.prepareStatement("INSERT INTO USER (name, course, dateOfBirth) VALUES ('"+userFormulario.getName()+"', '"+userFormulario.getCourse()+"', '"+userFormulario.getDateOfBirthForDatabase()+"')");
 			prepareStatement.executeUpdate();
 			prepareStatement.close();
 		} catch (SQLException e) {
@@ -54,8 +53,10 @@ public class Repository {
 		Connection conn = manager.open(jdbcUrl);
 		try {
 
-			PreparedStatement prepareStatement = conn.prepareStatement("(UPDATE USER SET ('"+userFormulario.getCourse()+"', '"+userFormulario.getDateOfBirth()+"')) FROM USER WHERE name=?;");
-			prepareStatement.setString(1, userFormulario.getName());
+			PreparedStatement prepareStatement = conn.prepareStatement("UPDATE USER SET course = ?, dateOfBirth = ? WHERE name=?");
+			prepareStatement.setString(1, userFormulario.getCourse());
+			prepareStatement.setDate(2, new Date(userFormulario.getDateOfBirth().getTime()));
+			prepareStatement.setString(3, userFormulario.getName());
 			prepareStatement.execute();
 			prepareStatement.close();
 		} catch (SQLException e) {
@@ -68,7 +69,7 @@ public class Repository {
 		Connection conn = manager.open(jdbcUrl);
 		try {
 
-			PreparedStatement prepareStatement = conn.prepareStatement("DELETE * FROM USER WHERE name=?;");
+			PreparedStatement prepareStatement = conn.prepareStatement("DELETE FROM USER WHERE name=?");
 			prepareStatement.setString(1, name);
 			prepareStatement.executeUpdate();
 			prepareStatement.close();

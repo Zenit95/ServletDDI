@@ -13,7 +13,7 @@
 <input type="button" value="Volver" onclick="self.location.href = 'datos.jsp'">
 <form action="delete" method="post">
  <input value="Sí" type="submit">
- <input type="hidden" value="Eliminar usuario" name="<%= request.getParameter('name') %>">
+ <input type="hidden" value="<%= request.getParameter("name") %>" name="name">
 </form>
 
 </body>
