@@ -23,7 +23,7 @@ private Service service = new Service();
 	}
 
 	protected void redirect(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/eliminar.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/fin.jsp");
 		dispatcher.forward(req,resp);
 	}
 
