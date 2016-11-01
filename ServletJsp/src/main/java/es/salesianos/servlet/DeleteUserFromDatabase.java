@@ -17,8 +17,8 @@ private Service service = new Service();
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		User user = service.assembleUserFromRequest(req);
+		user = service.SearchUser(user);
 		service.delete(user);
-		service.calculateAgeAndAddIntoRequest(req, user.getDateOfBirth());
 		redirect(req,resp);
 	}
 

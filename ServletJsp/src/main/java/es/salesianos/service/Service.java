@@ -17,11 +17,15 @@ public class Service {
 	
 	
 	private ConvertDate converter = new ConvertDate();
-	private ConnectionH2 manager = new ConnectionH2();
+	private Repository repository = new Repository();
 	
 	
 	public User assembleUserFromRequest(HttpServletRequest req) {
 		return UserAssembler.assembleUserFrom(req);
+	}
+	
+	public User SearchUser(User user) {
+		return repository.search(user);
 	}
 
 	public void insertOrUpdate(User userFormulario) {
@@ -35,13 +39,9 @@ public class Service {
 			repository.update(userFormulario);
 		}
 		
-		
-
-		//manager.close(conn);
 	}
 	
 	public void delete(User userFormulario) {
-		Repository repository = new Repository();
 		User userInDatabase = repository.search(userFormulario);
 		if(null == userInDatabase){
 			insertOrUpdate(userFormulario);
@@ -61,12 +61,6 @@ public class Service {
 	}
 	public void setConverter(ConvertDate converter) {
 		this.converter = converter;
-	}
-	public ConnectionH2 getManager() {
-		return manager;
-	}
-	public void setManager(ConnectionH2 manager) {
-		this.manager = manager;
 	}
 	
 	
