@@ -16,6 +16,16 @@ private Service service = new Service();
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		processServlet(req, resp);
+	}
+	
+	@Override
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		processServlet(req, resp);
+	}
+
+
+	private void processServlet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		User user = service.assembleUserFromRequest(req);
 		user = service.SearchUser(user);
 		service.delete(user);

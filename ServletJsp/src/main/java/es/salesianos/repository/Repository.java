@@ -6,12 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 
 import es.salesianos.connection.ConnectionH2;
 import es.salesianos.model.User;
 
 public class Repository {
-	private static final String jdbcUrl = "jdbc:h2:file:./src/main/resources/test";
+	private static final String jdbcUrl = "jdbc:h2:file:C:/Users/deama/Desktop/servlet/Serv/ServletJsp/DDI/ServletJsp/src/main/resources/test";
 	ConnectionH2 manager = new ConnectionH2();
 
 	public User search(User userFormulario) {
@@ -78,5 +79,30 @@ public class Repository {
 			throw new RuntimeException(e);
 		}
 		manager.close(conn);
+	}
+	public LinkedList<User> getUsuarios(){
+		Connection conn = manager.open(jdbcUrl);
+		LinkedList<User> listaContactos=new LinkedList<User>();
+		try
+		{
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery("select * from user" );
+			while (rs.next())
+			{
+				User usuarios = new User();
+				usuarios.setName(rs.getString(1));
+				usuarios.setCourse(rs.getString(2));
+				usuarios.setDateOfBirth(rs.getDate(3));
+				listaContactos.add(usuarios);
+			}
+			rs.close();
+			statement.close();
+			conn.close();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return listaContactos;
 	}
 }
